@@ -58,36 +58,39 @@ func main() {
 		panic(err)
 	}
 
-	var orderedPaths []string
+	type CodeOrder struct {
+		path  string
+		order int
+	}
+
+	var outputOrder []CodeOrder
 
 	demo.Routes()
 	// navigation items as they appear on the page, match these
 	// with the demo code path based on demo/demo_<name>.go
 	// where <name> will be the href
-	for _, item := range demo.NavigationItems {
-		cp := strings.TrimPrefix(item.Href, "/")
-		if cp == "" {
-			cp = "index"
+	for i, item := range demo.NavigationItems {
+		name := strings.TrimPrefix(item.Href, "/")
+		if name == "" {
+			name = "index"
 		}
-		codePath := fmt.Sprintf("demo/demo_%s.go", cp)
+		codePath := fmt.Sprintf("demo/demo_%s.go", name)
 		if paths[codePath] {
 			delete(paths, codePath)
-			orderedPaths = append(orderedPaths, codePath)
+			order := CodeOrder{path: codePath, order: i}
+			outputOrder = append(outputOrder, order)
 		}
 	}
+	next := len(outputOrder)
+	var otherPaths []string
 	for k := range paths {
-		if strings.HasPrefix(k, "demo/") {
-			delete(paths, k)
-			orderedPaths = append(orderedPaths, k)
-		}
+		otherPaths = append(otherPaths, k)
 	}
-
-	var mainPackage []string
-	for k := range paths {
-		mainPackage = append(mainPackage, k)
+	sort.Strings(otherPaths)
+	for i, path := range otherPaths {
+		order := CodeOrder{path: path, order: next + i}
+		outputOrder = append(outputOrder, order)
 	}
-	sort.Strings(mainPackage)
-	orderedPaths = append(orderedPaths, mainPackage...)
 
 	open, err := os.Create(output)
 	if err != nil {
@@ -108,7 +111,8 @@ func main() {
 
 	buff.WriteString("var Code = []CodeDetails{\n")
 
-	for _, path := range orderedPaths {
+	for _, op := range outputOrder {
+		path := op.path
 		buf := &bytes.Buffer{}
 		buf.WriteString("```go\n")
 		file, err := os.ReadFile(path)
