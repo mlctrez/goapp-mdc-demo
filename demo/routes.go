@@ -29,6 +29,7 @@ func Routes() {
 	addRoute(&list.Item{Text: "Select", Graphic: icon.MISelectAll, Href: "/select"}, &SelectDemo{})
 	addRoute(&list.Item{Text: "Slider", Graphic: icon.MIDoorSliding, Href: "/slider"}, &SliderDemo{})
 	addRoute(&list.Item{Text: "Snackbar", Graphic: icon.MILunchDining, Href: "/snackbar"}, &SnackBarDemo{})
+	addRoute(&list.Item{Text: "Switch", Graphic: icon.MISwitchLeft, Href: "/switch"}, &SwitchDemo{})
 	addRoute(&list.Item{Text: "Tab", Graphic: icon.MITab, Href: "/tab"}, &TabDemo{})
 	NavigationItems = append(NavigationItems, &list.Item{Type: list.ItemTypeDivider})
 	addRoute(&list.Item{Text: "Code", Graphic: icon.MICode, Href: "/code"}, &CodeDemo{})
