@@ -8,6 +8,7 @@ import (
 	"github.com/mlctrez/goapp-mdc/pkg/base"
 	"github.com/mlctrez/goapp-mdc/pkg/button"
 	"github.com/mlctrez/goapp-mdc/pkg/checkbox"
+	"github.com/mlctrez/goapp-mdc/pkg/formfield"
 	"github.com/mlctrez/goapp-mdc/pkg/layout"
 )
 
@@ -57,7 +58,10 @@ func (c *BannerDemo) Render() app.UI {
 			ctx.NewActionWithValue(string(banner.Open), c.fixed)
 		})
 	}}
-	centered := &checkbox.Checkbox{Id: c.UUID(), Label: "centered", Callback: func(input app.HTMLInput) {
+
+	// Label: "centered"
+
+	checkBox := &checkbox.Checkbox{Id: c.UUID(), Callback: func(input app.HTMLInput) {
 		input.OnClick(func(ctx app.Context, e app.Event) {
 			centeredValue := ctx.JSSrc().Get("checked").Bool()
 			c.floating.Centered = centeredValue
@@ -66,6 +70,8 @@ func (c *BannerDemo) Render() app.UI {
 			c.fixed.Update()
 		})
 	}}
+
+	centered := &formfield.FormField{Component: checkBox, Label: "centered"}
 
 	body := app.Div().Body(
 		c.floating, c.fixed,

@@ -6,6 +6,7 @@ import (
 	"github.com/maxence-charriere/go-app/v9/pkg/app"
 	"github.com/mlctrez/goapp-mdc/pkg/button"
 	"github.com/mlctrez/goapp-mdc/pkg/checkbox"
+	"github.com/mlctrez/goapp-mdc/pkg/formfield"
 	"github.com/mlctrez/goapp-mdc/pkg/layout"
 )
 
@@ -34,22 +35,22 @@ func (d *ButtonDemo) Render() app.UI {
 	body := layout.Grid().Body(layout.Inner().Body(
 		layout.CellModified("middle", 12).Body(d.button),
 		layout.Cell().Body(
-			&checkbox.Checkbox{Id: "toggleIcon", Label: "has icon",
+			&formfield.FormField{Label: "has icon", Component: &checkbox.Checkbox{Id: "toggleIcon",
 				Callback: handleCheckboxChange(func(checkVal bool) {
 					if checkVal {
 						d.button.Icon = "bookmark"
 					} else {
 						d.button.Icon = ""
 					}
-				})},
-			&checkbox.Checkbox{Id: "toggleTrailing", Label: "trailing icon",
-				Callback: handleCheckboxChange(func(checkVal bool) { d.button.TrailingIcon = checkVal })},
-			&checkbox.Checkbox{Id: "toggleOutline", Label: "outlined",
-				Callback: handleCheckboxChange(func(checkVal bool) { d.button.Outlined = checkVal })},
-			&checkbox.Checkbox{Id: "toggleRaised", Label: "raised",
-				Callback: handleCheckboxChange(func(checkVal bool) { d.button.Raised = checkVal })},
-			&checkbox.Checkbox{Id: "toggleUnelevated", Label: "unelevated",
-				Callback: handleCheckboxChange(func(checkVal bool) { d.button.Unelevated = checkVal })}),
+				})}},
+			&formfield.FormField{Label: "trailing icon", Component: &checkbox.Checkbox{Id: "toggleTrailing",
+				Callback: handleCheckboxChange(func(checkVal bool) { d.button.TrailingIcon = checkVal })}},
+			&formfield.FormField{Label: "outlined", Component: &checkbox.Checkbox{Id: "toggleOutline",
+				Callback: handleCheckboxChange(func(checkVal bool) { d.button.Outlined = checkVal })}},
+			&formfield.FormField{Label: "raised", Component: &checkbox.Checkbox{Id: "toggleRaised",
+				Callback: handleCheckboxChange(func(checkVal bool) { d.button.Raised = checkVal })}},
+			&formfield.FormField{Label: "unelevated", Component: &checkbox.Checkbox{Id: "toggleUnelevated",
+				Callback: handleCheckboxChange(func(checkVal bool) { d.button.Unelevated = checkVal })}}),
 	))
 	return PageBody(body)
 }

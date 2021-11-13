@@ -2,6 +2,7 @@ package demo
 
 import (
 	"github.com/maxence-charriere/go-app/v9/pkg/app"
+	"github.com/mlctrez/goapp-mdc/pkg/layout"
 )
 
 type Index struct {
@@ -10,28 +11,16 @@ type Index struct {
 
 func (i *Index) Render() app.UI {
 
-	homeBody := app.Div()
+	content := layout.Grid().Body(
+		layout.Inner().Body(
+			layout.Cell().Body(
+				app.H3().Text("goapp mdc"),
 
-	paragraph := func() app.HTMLP {
-		t := "lorem ipsum lorem ipsum lorem ipsum "
-		for i := 0; i < 10; i++ {
-			t += t
-		}
-		return app.P().Text(t)
-	}
+				app.Text("The goal of this is to demonstrate the goapp-mdc components in a similar layout as "),
+				app.A().Href("https://material-components.github.io/material-components-web-catalog/#/").Text("Material Components Web Catalog"),
+				app.Text("."),
+			)))
 
-	homeBody.Body(
-
-		app.H3().Text("go-app mdc"),
-		paragraph(),
-		app.Hr(),
-		paragraph(),
-		app.Hr(),
-		paragraph(),
-		app.Hr(),
-		paragraph(),
-	)
-
-	return PageBody(homeBody)
+	return PageBody(content)
 
 }

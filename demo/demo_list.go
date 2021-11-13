@@ -41,6 +41,12 @@ func (d *ListDemo) Render() app.UI {
 	}
 	checkboxGroupList.Select(-1)
 
+	radioGroupList := make(list.Items, 4)
+	for i := range checkboxGroupList {
+		radioGroupList[i] = &list.Item{Type: list.ItemTypeRadio, Text: fmt.Sprintf("radio %d", i), Name: "radios"}
+	}
+	radioGroupList.Select(-1)
+
 	body := FlexGrid(
 		layout.Cell().Body(
 			app.P().Text("regular"), &list.List{Id: "regularList", Items: regularList.UIList()}),
@@ -62,6 +68,11 @@ func (d *ListDemo) Render() app.UI {
 			app.P().Text("checkbox group"),
 			&list.List{Id: "checkboxGroupList", Type: list.CheckBox, Items: checkboxGroupList.UIList()},
 		),
+		layout.Cell().Body(
+			app.P().Text("radio group"),
+			&list.List{Id: "checkboxGroupList", Type: list.RadioGroup, Items: radioGroupList.UIList()},
+		),
+
 	)
 
 	return PageBody(body)
