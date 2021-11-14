@@ -32,7 +32,15 @@ func PageBody(pageContent ...app.UI) app.UI {
 
 	if !DesktopMode {
 		modeButton = icon.MIDesktopMac.Button().Title("switch to desktop mode")
-		menuButton := icon.MIMenu.Button().OnClick(func(ctx app.Context, e app.Event) { nav.drawer.ActionToggle(ctx) })
+		menuButton := icon.MIMenu.Button().OnClick(func(ctx app.Context, e app.Event) {
+			// nav.drawer.ActionToggle(ctx)
+			DrawerOpen = !DrawerOpen
+			if DrawerOpen {
+				nav.drawer.ActionOpen(ctx)
+			} else {
+				nav.drawer.ActionClose(ctx)
+			}
+		})
 		topBar.Navigation = []app.HTMLButton{menuButton}
 	} else {
 		modeButton = icon.MIMobileFriendly.Button().Title("switch to mobile mode")
@@ -70,58 +78,35 @@ func PageBody(pageContent ...app.UI) app.UI {
 	}
 
 	if DesktopMode {
-		return &DesktopBody{nav: nav, topBar: topBar, content: pageContent}
-	} else {
-		return &MobileBody{nav: nav, topBar: topBar, content: pageContent}
-	}
-}
+		var navFirstContent []app.UI
+		navFirstContent = append(navFirstContent, nav)
+		navFirstContent = append(navFirstContent, pageContent...)
 
-type MobileBody struct {
-	app.Compo
-	nav     *Navigation
-	topBar  *bar.TopAppBar
-	content []app.UI
-}
-
-func (mb *MobileBody) Render() app.UI {
-	return app.Div().Body(
-		mb.nav,
-		app.Div().Class("mdc-drawer-app-content").Body(
+		return app.Div().Body(
 			&AppUpdateBanner{},
-			mb.topBar,
+			topBar,
 			app.Div().Class("main-content").ID("main-content").Body(
-				mb.topBar.Main().Body(
-					app.Div().Style("display", "flex").Body(mb.content...),
+				topBar.Main().Body(
 					app.Div(),
+					app.Div().Style("display", "flex").Body(navFirstContent...),
 				),
 			),
-		),
-	)
-}
-
-type DesktopBody struct {
-	app.Compo
-	nav     *Navigation
-	topBar  *bar.TopAppBar
-	content []app.UI
-}
-
-func (mb *DesktopBody) Render() app.UI {
-	var navFirstContent []app.UI
-	navFirstContent = append(navFirstContent, mb.nav)
-	navFirstContent = append(navFirstContent, mb.content...)
-
-	return app.Div().Body(
-		&AppUpdateBanner{},
-		mb.topBar,
-		app.Div().Class("main-content").ID("main-content").Body(
-			mb.topBar.Main().Body(
-				app.Div(),
-				app.Div().Style("display", "flex").Body(navFirstContent...),
+		)
+	} else {
+		return app.Div().Body(
+			nav,
+			app.Div().Class("mdc-drawer-app-content").Body(
+				&AppUpdateBanner{},
+				topBar,
+				app.Div().Class("main-content").ID("main-content").Body(
+					topBar.Main().Body(
+						app.Div().Style("display", "flex").Body(pageContent...),
+						app.Div(),
+					),
+				),
 			),
-		),
-	)
-
+		)
+	}
 }
 
 func FlexGrid(cells ...app.UI) app.UI {

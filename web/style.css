@@ -19,3 +19,20 @@ pre[class*="language-"] code {
     background-color: transparent;
     font-family: monospace;
 }
+
+.standard-image-list {
+    max-width: 900px;
+}
+.standard-image-list .mdc-image-list__image-aspect-container {
+    padding-bottom: calc(100% / 1.5);
+}
+.standard-image-list .mdc-image-list__item {
+    width: calc(100% / 5 - 4.2px);
+    margin: 2px;
+}
+.standard-image-list .mdc-image-list__image {
+    border-radius: 8px;
+}
+.standard-image-list.mdc-image-list--with-text-protection .mdc-image-list__supporting {
+    border-radius: 0 0 8px 8px;
+}

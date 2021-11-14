@@ -23,7 +23,7 @@ func (d *CodeDemo) OnNav(ctx app.Context) {
 	d.SetActive(urlFragmentToInt(ctx))
 	d.list.Select(d.Active)
 	d.Update()
-	ctx.Defer(prismHiglightAll)
+	ctx.Defer(prismHighlightAll)
 }
 
 func (d *CodeDemo) SetActive(index int) {
@@ -60,7 +60,7 @@ func (d *CodeDemo) Render() app.UI {
 	return PageBody(body, app.Raw(d.Content))
 }
 
-func prismHiglightAll(_ app.Context) {
+func prismHighlightAll(_ app.Context) {
 	prism := app.Window().Get("Prism")
 	if prism.Truthy() {
 		prism.Call("highlightAll")
@@ -68,7 +68,7 @@ func prismHiglightAll(_ app.Context) {
 }
 
 func (d *CodeDemo) OnMount(ctx app.Context) {
-	ctx.Defer(prismHiglightAll)
+	ctx.Defer(prismHighlightAll)
 }
 
 func (d *CodeDemo) eventHandler(ctx app.Context, action app.Action) {

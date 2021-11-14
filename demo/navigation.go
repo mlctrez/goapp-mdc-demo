@@ -7,6 +7,8 @@ import (
 	"github.com/mlctrez/goapp-mdc/pkg/list"
 )
 
+var DrawerOpen bool
+
 var NavigationItems []*list.Item
 
 type Navigation struct {
@@ -31,6 +33,7 @@ func (n *Navigation) Render() app.UI {
 			}
 		}
 		n.drawer = &drawer.Drawer{
+			Open: DrawerOpen,
 			Type: n.Type, Id: "navigationDrawer",
 			List: &list.List{Type: list.Navigation,
 				Id: "navigationList", Items: n.items.UIList(),

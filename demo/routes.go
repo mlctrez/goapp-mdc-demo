@@ -24,6 +24,7 @@ func Routes() {
 	addRoute(&list.Item{Text: "Fab", Graphic: icon.MIFavorite, Href: "/fab"}, &FabDemo{})
 	addRoute(&list.Item{Text: "Form", Graphic: icon.MIInput, Href: "/form"}, &FormDemo{})
 	addRoute(&list.Item{Text: "Icon", Graphic: icon.MIIcecream, Href: "/icon"}, &IconDemo{})
+	addRoute(&list.Item{Text: "ImageList", Graphic: icon.MIImage, Href: "/imagelist"}, &ImageListDemo{})
 	addRoute(&list.Item{Text: "List", Graphic: icon.MIList, Href: "/list"}, &ListDemo{})
 	addRoute(&list.Item{Text: "Progress", Graphic: icon.MIWatch, Href: "/progress"}, &ProgressDemo{})
 	addRoute(&list.Item{Text: "Radio", Graphic: icon.MIRadio, Href: "/radio"}, &RadioDemo{})
