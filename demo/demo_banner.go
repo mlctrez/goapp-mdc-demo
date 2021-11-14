@@ -17,17 +17,9 @@ type BannerDemo struct {
 	base.JsUtil
 	floating *banner.Banner
 	fixed    *banner.Banner
-	message  *Message
+	message  *base.Message
 }
 
-type Message struct {
-	app.Compo
-	Text string
-}
-
-func (c *Message) Render() app.UI {
-	return app.Code().Text(c.Text)
-}
 
 func (c *BannerDemo) Render() app.UI {
 
@@ -46,7 +38,7 @@ func (c *BannerDemo) Render() app.UI {
 				&button.Button{Id: c.UUID(), Label: "Secondary", Banner: true, BannerAction: "secondary"},
 			},
 		}
-		c.message = &Message{Text: "banner events will appear here"}
+		c.message = &base.Message{Text: "banner events will appear here"}
 	}
 	openFloating := &button.Button{Id: c.UUID(), Label: "floating", Callback: func(button app.HTMLButton) {
 		button.OnClick(func(ctx app.Context, e app.Event) {

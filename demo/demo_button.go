@@ -19,6 +19,7 @@ func (d *ButtonDemo) Render() app.UI {
 	if d.button == nil {
 		d.button = &button.Button{Id: "subjectButton", Label: "a button"}
 	}
+
 	handleCheckboxChange := func(before func(checkVal bool)) func(input app.HTMLInput) {
 		return func(input app.HTMLInput) {
 			input.OnChange(func(ctx app.Context, e app.Event) {
