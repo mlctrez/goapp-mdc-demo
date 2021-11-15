@@ -43,13 +43,14 @@ func (i *ImageListDemo) Render() app.UI {
 
 	content = append(content,
 		&imagelist.ImageList{
-			Class:   "standard-image-list",
-			Masonry: false,
-			Items:   items,
+			Class:      "standard-image-list",
+			Protection: true,
+			Masonry:    false,
+			Items:      items,
 		},
 	)
 
-	return PageBody(app.Div().Body(content...))
+	return PageBody(app.Div().Style("display", "inline").Style("width", "900px").Body(content...))
 }
 
 func makeImage(c color.Color, width, height int) string {

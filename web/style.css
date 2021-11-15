@@ -24,7 +24,7 @@ pre[class*="language-"] code {
     max-width: 900px;
 }
 .standard-image-list .mdc-image-list__image-aspect-container {
-    padding-bottom: calc(100% / 1.5);
+    padding-bottom: calc(100% / 1);
 }
 .standard-image-list .mdc-image-list__item {
     width: calc(100% / 5 - 4.2px);
