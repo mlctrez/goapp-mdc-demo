@@ -1,8 +1,6 @@
 package demo
 
 import (
-	"errors"
-
 	"github.com/google/uuid"
 	"github.com/maxence-charriere/go-app/v9/pkg/app"
 	"github.com/mlctrez/goapp-mdc/pkg/helperline"
@@ -30,15 +28,6 @@ func textAreaExample() []app.UI {
 
 func (e *FormDemo) Render() app.UI {
 
-	value := "a"
-
-	in := input.NewInput("myInput", "myInput", input.InputTypeText, &value, func(value app.Value) error {
-		if len(value.String()) < 4 {
-			return errors.New("an error")
-		}
-		return nil
-	}, input.InputOptMin(2))
-
 	body := layout.Grid().Body(layout.Inner().Style("display", "flex").Body(
 		layout.Cell().Body(layout.Inner().Style("display", "flex").Body(
 			layout.CellWide().Body(app.H4().Text("Text Area")),
@@ -53,16 +42,6 @@ func (e *FormDemo) Render() app.UI {
 			layout.CellWide().Body(app.H4().Text("Text Field")),
 			layout.Cell().Body(textAreaExample()...),
 		)),
-		layout.Cell().Body(layout.Inner().Style("display", "flex").Body(
-			in,
-		)),
-
-		//layout.Cell().Body(layout.Inner().Style("display", "flex").Body(
-		//	app.Form().OnSubmit(func(ctx app.Context, e app.Event) {
-		//		e.PreventDefault()
-		//		log.Println("submit")
-		//	}, nil).Body(app.Button().Type("submit").Text("submit form")),
-		//)),
 	))
 
 	_ = body
