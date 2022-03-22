@@ -87,7 +87,6 @@ func PageBody(pageContent ...app.UI) app.UI {
 			topBar,
 			app.Div().Class("main-content").ID("main-content").Body(
 				topBar.Main().Body(
-					app.Div(),
 					app.Div().Style("display", "flex").Body(navFirstContent...),
 				),
 			),
@@ -101,7 +100,6 @@ func PageBody(pageContent ...app.UI) app.UI {
 				app.Div().Class("main-content").ID("main-content").Body(
 					topBar.Main().Body(
 						app.Div().Style("display", "flex").Body(pageContent...),
-						app.Div(),
 					),
 				),
 			),

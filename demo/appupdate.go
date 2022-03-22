@@ -44,7 +44,7 @@ func (d *AppUpdateBanner) onBannerClose(ctx app.Context, reason string) {
 }
 
 func (d *AppUpdateBanner) OnMount(ctx app.Context) {
-	d.bnr.ActionClose(ctx, d.onBannerClose)
+	d.bnr.OnClose(ctx, d.onBannerClose)
 }
 
 func (d *AppUpdateBanner) OnAppUpdate(ctx app.Context) {

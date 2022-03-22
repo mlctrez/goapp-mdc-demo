@@ -9,7 +9,6 @@ import (
 	"github.com/mlctrez/goapp-mdc/pkg/button"
 	"github.com/mlctrez/goapp-mdc/pkg/checkbox"
 	"github.com/mlctrez/goapp-mdc/pkg/formfield"
-	"github.com/mlctrez/goapp-mdc/pkg/layout"
 )
 
 type BannerDemo struct {
@@ -19,7 +18,6 @@ type BannerDemo struct {
 	fixed    *banner.Banner
 	message  *base.Message
 }
-
 
 func (c *BannerDemo) Render() app.UI {
 
@@ -42,16 +40,25 @@ func (c *BannerDemo) Render() app.UI {
 	}
 	openFloating := &button.Button{Id: c.UUID(), Label: "floating", Callback: func(button app.HTMLButton) {
 		button.OnClick(func(ctx app.Context, e app.Event) {
-			ctx.NewActionWithValue(string(banner.Open), c.floating)
+			c.floating.ActionOpen(ctx)
 		})
 	}}
-	openFixed := &button.Button{Id: c.UUID(), Label: "fixed", Callback: func(button app.HTMLButton) {
+	closeFloating := &button.Button{Label: "Close", Callback: func(button app.HTMLButton) {
 		button.OnClick(func(ctx app.Context, e app.Event) {
-			ctx.NewActionWithValue(string(banner.Open), c.fixed)
+			c.floating.ActionClose(ctx, banner.ClosePrimary)
 		})
 	}}
 
-	// Label: "centered"
+	openFixed := &button.Button{Id: c.UUID(), Label: "fixed", Callback: func(button app.HTMLButton) {
+		button.OnClick(func(ctx app.Context, e app.Event) {
+			c.fixed.ActionOpen(ctx)
+		})
+	}}
+	closeFixed := &button.Button{Label: "Close", Callback: func(button app.HTMLButton) {
+		button.OnClick(func(ctx app.Context, e app.Event) {
+			c.fixed.ActionClose(ctx, banner.CloseSecondary)
+		})
+	}}
 
 	checkBox := &checkbox.Checkbox{Id: c.UUID(), Callback: func(input app.HTMLInput) {
 		input.OnClick(func(ctx app.Context, e app.Event) {
@@ -63,14 +70,16 @@ func (c *BannerDemo) Render() app.UI {
 		})
 	}}
 
-	centered := &formfield.FormField{Component: checkBox, Label: "centered"}
+	centered := &formfield.FormField{Component: checkBox, Label: "show banners centered"}
 
 	body := app.Div().Body(
 		c.floating, c.fixed,
-		layout.Grid().Body(layout.Inner().Body(
-			layout.Cell().Body(openFloating, openFixed, centered),
-			layout.CellModified("middle", 12).Body(c.message),
-		)))
+		app.H3().Text("Banner Demo"),
+		app.P().Body(centered),
+		app.P().Body(openFixed, closeFixed),
+		app.P().Body(openFloating, closeFloating),
+		app.P().Body(c.message),
+	)
 	return PageBody(body)
 
 }

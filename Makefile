@@ -3,10 +3,10 @@ GIT_COMMIT := $(shell git describe --long --always 2> /dev/null)
 PROG := bin/goappmdc
 GOFILES := $(shell find . -name "*.go" -print)
 
-build: markup wasm binary
-
 run: build
 	$(PROG) dev
+
+build: markup wasm binary
 
 static: build bin/genstatic
 	rm -rf static

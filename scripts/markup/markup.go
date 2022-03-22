@@ -20,7 +20,7 @@ func main() {
 	var output string
 	flag.StringVar(&output, "output", "demo/markup/code.go", "the output file")
 
-	fmt.Println(output)
+	fmt.Println("creating", output)
 
 	getwd, err := os.Getwd()
 	if err != nil {
@@ -30,11 +30,15 @@ func main() {
 	paths := make(map[string]bool)
 
 	err = filepath.Walk(getwd, func(path string, info fs.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
 		if strings.HasSuffix(info.Name(), ".go") {
 			var rel string
-			rel, err = filepath.Rel(getwd, path)
-			if err != nil {
-				return err
+			var err2 error
+			rel, err2 = filepath.Rel(getwd, path)
+			if err2 != nil {
+				return err2
 			}
 			// add root files
 			if !strings.Contains(rel, "/") {
@@ -81,15 +85,23 @@ func main() {
 			outputOrder = append(outputOrder, order)
 		}
 	}
-	next := len(outputOrder)
+
+
 	var otherPaths []string
 	for k := range paths {
 		otherPaths = append(otherPaths, k)
 	}
 	sort.Strings(otherPaths)
+
+
+	next := len(outputOrder)
 	for i, path := range otherPaths {
 		order := CodeOrder{path: path, order: next + i}
 		outputOrder = append(outputOrder, order)
+	}
+
+	for i, order := range outputOrder {
+		fmt.Println(i, order)
 	}
 
 	open, err := os.Create(output)
