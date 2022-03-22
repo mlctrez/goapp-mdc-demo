@@ -5,7 +5,6 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/maxence-charriere/go-app/v9/pkg/app"
-	"github.com/mlctrez/goapp-mdc-demo/demo/input"
 	"github.com/mlctrez/goapp-mdc/pkg/helperline"
 	"github.com/mlctrez/goapp-mdc/pkg/layout"
 	"github.com/mlctrez/goapp-mdc/pkg/textarea"
