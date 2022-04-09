@@ -1,8 +1,8 @@
 module github.com/mlctrez/goapp-mdc-demo
 
-go 1.17
+go 1.18
 
-replace github.com/mlctrez/goapp-mdc v0.2.3 => ../goapp-mdc
+//replace github.com/mlctrez/goapp-mdc v0.2.7 => ../goapp-mdc
 
 require (
 	github.com/aws/aws-sdk-go-v2 v1.10.0
@@ -12,7 +12,7 @@ require (
 	github.com/gomarkdown/markdown v0.0.0-20210918233619-6c1113f12c4a
 	github.com/google/uuid v1.3.0
 	github.com/maxence-charriere/go-app/v9 v9.2.0
-	github.com/mlctrez/goapp-mdc v0.2.3
+	github.com/mlctrez/goapp-mdc v0.2.8
 )
 
 require (

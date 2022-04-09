@@ -12,6 +12,7 @@ import (
 
 type DialogDemo struct {
 	app.Compo
+	dialogId string
 }
 
 func (d *DialogDemo) Render() app.UI {
@@ -35,7 +36,7 @@ func (d *DialogDemo) Render() app.UI {
 	openDialog := &button.Button{Id: "openDialogButton", Label: "open dialog"}
 	openDialog.Callback = func(b app.HTMLButton) {
 		b.OnClick(func(ctx app.Context, e app.Event) {
-			diag.Open()
+			ctx.NewActionWithValue(string(dialog.Open), diag.Id)
 		})
 	}
 
